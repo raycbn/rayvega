@@ -1,0 +1,15 @@
+{
+  "name": "Ray Vega — IT & Systems Engineer",
+  "short_name": "Ray Vega",
+  "start_url": "/",
+  "display": "minimal-ui",
+  "background_color": "#09090b",
+  "theme_color": "#3b82f7",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "48x48",
+      "type": "image/svg+xml"
+    }
+  ]
+}

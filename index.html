@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script>
+      try {
+        var t = localStorage.getItem('theme');
+        if (t !== 'light') document.documentElement.classList.add('dark');
+      } catch (e) {}
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ray Vega — IT & Systems Engineer | Cloud, Cybersecurity, Automation, AI</title>
+    <meta
+      name="description"
+      content="Infrastructure, cloud, cybersecurity, automation and AI engineer building reliable systems and tooling. Portfolio of independent projects."
+    />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#09090b" />
+
+    <link rel="icon" type="image/svg+xml" sizes="any" href="/favicon.svg" />
+    <link rel="alternate icon" href="/favicon.svg" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+
+    <meta property="og:title" content="Ray Vega — IT & Systems Engineer" />
+    <meta
+      property="og:description"
+      content="Infrastructure, cloud, cybersecurity, automation and AI engineer building reliable systems and tooling."
+    />
+    <meta property="og:image" content="https://rayvega.dev/og.svg" />
+    <meta property="og:url" content="https://rayvega.dev" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Ray Vega — IT & Systems Engineer" />
+    <meta
+      name="twitter:description"
+      content="Infrastructure, cloud, cybersecurity, automation and AI engineer building reliable systems and tooling."
+    />
+    <meta name="twitter:image" content="https://rayvega.dev/og.svg" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
