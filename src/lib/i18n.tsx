@@ -74,7 +74,12 @@ const EN: TextDictionary = {
   },
   technologies: {
     title: 'Technologies',
-    description: 'Tools and platforms I work with — organized by domain.',
+    description: 'Tools and platforms I work with, organized by technical domain.',
+    infrastructure: 'Infrastructure, systems and enterprise platforms.',
+    cloud: 'Cloud platforms, containers and infrastructure automation.',
+    development: 'Languages, frameworks and testing tools used across my projects.',
+    ai: 'AI, agent tooling and controlled automation.',
+    technologyCount: 'technologies',
     pending: 'Pending',
   },
   lab: {
@@ -203,7 +208,12 @@ const ES: TextDictionary = {
   },
   technologies: {
     title: 'Tecnologías',
-    description: 'Herramientas y plataformas con las que trabajo, organizadas por área.',
+    description: 'Herramientas y plataformas con las que trabajo, organizadas por dominio técnico.',
+    infrastructure: 'Infraestructura, sistemas y plataformas empresariales.',
+    cloud: 'Plataformas cloud, contenedores y automatización de infraestructura.',
+    development: 'Lenguajes, frameworks y herramientas de testing utilizados en mis proyectos.',
+    ai: 'IA, herramientas para agentes y automatización controlada.',
+    technologyCount: 'tecnologías',
     pending: 'Pendiente',
   },
   lab: {

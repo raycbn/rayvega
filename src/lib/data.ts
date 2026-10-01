@@ -197,10 +197,26 @@ export const PROJECTS: Project[] = [
 ]
 
 export const TECH_CATEGORIES = [
-  { id: 'infrastructure', label: 'Infrastructure' },
-  { id: 'cloud', label: 'Cloud / DevOps' },
-  { id: 'development', label: 'Development' },
-  { id: 'ai', label: 'AI / Automation' },
+  {
+    id: 'infrastructure',
+    label: 'Infrastructure',
+    technologies: ['Windows Server', 'Linux / RHEL', 'Active Directory', 'VMware vSphere / ESXi / vCenter', 'SAN / NAS', 'NetApp', 'Citrix', 'SQL Server', 'PostgreSQL', 'Kubernetes', 'OpenShift'],
+  },
+  {
+    id: 'cloud',
+    label: 'Cloud / DevOps',
+    technologies: ['Azure', 'AWS', 'Docker', 'Terraform', 'Ansible', 'PowerShell', 'Bash', 'Vite', 'Firebase', 'Cloudflare'],
+  },
+  {
+    id: 'development',
+    label: 'Development',
+    technologies: ['Python', 'TypeScript', 'JavaScript', 'React', 'Flutter', 'Dart', 'FastAPI', 'Node.js', 'Express', 'Tailwind CSS', 'Vitest', 'Playwright'],
+  },
+  {
+    id: 'ai',
+    label: 'AI / Automation',
+    technologies: ['MCP', 'Ollama', 'AI agents', 'Automation', 'Policy-driven execution', 'Infrastructure tooling'],
+  },
 ] as const
 
 export const statusLabel: Record<ProjectStatus, string> = {
