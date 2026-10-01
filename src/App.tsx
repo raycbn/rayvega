@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react'
 import { Header } from './components/layout/Header'
 import { Footer } from './components/layout/Footer'
 import { Hero } from './components/sections/Hero'
@@ -7,9 +8,9 @@ import { Experience } from './components/sections/Experience'
 import { Technologies } from './components/sections/Technologies'
 import { Lab } from './components/sections/Lab'
 import { Contact } from './components/sections/Contact'
-import { CVPage } from './pages/CVPage'
-import { NexusPage } from './pages/NexusPage'
-import { ProjectDetailPage } from './pages/ProjectDetailPage'
+const CVPage = lazy(() => import('./pages/CVPage').then((module) => ({ default: module.CVPage })))
+const NexusPage = lazy(() => import('./pages/NexusPage').then((module) => ({ default: module.NexusPage })))
+const ProjectDetailPage = lazy(() => import('./pages/ProjectDetailPage').then((module) => ({ default: module.ProjectDetailPage })))
 
 export default function App() {
   const path = window.location.pathname.replace(/\/$/, '') || '/'
@@ -22,7 +23,8 @@ export default function App() {
   return (
     <>
       <Header />
-      {isCvPage ? <CVPage /> : isNexusPage ? <NexusPage /> : isProjectDetailPage ? <ProjectDetailPage projectId={projectId} /> : <main>
+      <Suspense fallback={<div className="min-h-[70vh]" aria-hidden="true" />}>
+        {isCvPage ? <CVPage /> : isNexusPage ? <NexusPage /> : isProjectDetailPage ? <ProjectDetailPage projectId={projectId} /> : <main>
         <Hero />
         <Projects />
         <About />
@@ -30,7 +32,8 @@ export default function App() {
         <Technologies />
         <Lab />
         <Contact />
-      </main>}
+        </main>}
+      </Suspense>
       <Footer />
     </>
   )
