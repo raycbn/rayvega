@@ -84,7 +84,7 @@ const EN: TextDictionary = {
   },
   lab: {
     title: 'Lab',
-    description: 'Experiments, write-ups, and tooling explored in the lab — coming soon.',
+    description: 'Experiments, write-ups and infrastructure tooling explored in the lab.',
     empty: 'No lab entries yet.',
   },
   contact: {
@@ -218,7 +218,7 @@ const ES: TextDictionary = {
   },
   lab: {
     title: 'Laboratorio',
-    description: 'Experimentos, documentación y herramientas exploradas en el laboratorio — próximamente.',
+    description: 'Experimentos, documentación y herramientas de infraestructura exploradas en el laboratorio.',
     empty: 'Todavía no hay entradas en el laboratorio.',
   },
   contact: {
