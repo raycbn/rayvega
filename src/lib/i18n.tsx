@@ -1,5 +1,6 @@
 /* oxlint-disable react/only-export-components */
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
+import { PROJECTS, SITE } from './data'
 
 export type Language = 'en' | 'es'
 
@@ -562,20 +563,81 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     window.localStorage.setItem('rayvega-language', language)
     document.documentElement.lang = language
-    document.title = language === 'es'
+
+    const path = window.location.pathname.replace(/\/$/, '') || '/'
+    const projectId = path.startsWith('/projects/') ? path.slice('/projects/'.length) : ''
+    const project = PROJECTS.find((item) => item.id === projectId)
+    const detail = projectId ? getDetailCopy(language, projectId) : undefined
+
+    const homeTitle = language === 'es'
       ? 'Ray Vega — Ingeniero de Sistemas IT | Cloud, Ciberseguridad, Automatización, IA'
       : 'Ray Vega — IT & Systems Engineer | Cloud, Cybersecurity, Automation, AI'
-
-    const description = language === 'es'
+    const homeDescription = language === 'es'
       ? 'Ingeniería de sistemas, infraestructura, cloud, ciberseguridad, automatización e IA orientada a construir plataformas fiables y herramientas prácticas.'
       : 'Systems, infrastructure, cloud, cybersecurity, automation and AI engineering focused on building reliable platforms and practical tooling.'
 
+    let title = homeTitle
+    let description = homeDescription
+    if (path === '/cv') {
+      title = dictionaries[language].cv.title + ' — Ray Vega'
+      description = dictionaries[language].cv.summary
+    } else if (project && detail) {
+      title = detail.title + ' — Ray Vega'
+      description = detail.intro
+    }
+
+    const canonicalUrl = new URL(path === '/' ? '/' : path, SITE.url).toString()
+    document.title = title
+
     document.querySelector('meta[name="description"]')?.setAttribute('content', description)
+    document.querySelector('meta[name="robots"]')?.setAttribute('content', 'index,follow,max-image-preview:large')
     document.querySelector('meta[property="og:locale"]')?.setAttribute('content', language === 'es' ? 'es_ES' : 'en_US')
-    document.querySelector('meta[property="og:title"]')?.setAttribute('content', document.title)
+    document.querySelector('meta[property="og:title"]')?.setAttribute('content', title)
     document.querySelector('meta[property="og:description"]')?.setAttribute('content', description)
-    document.querySelector('meta[name="twitter:title"]')?.setAttribute('content', document.title)
+    document.querySelector('meta[property="og:url"]')?.setAttribute('content', canonicalUrl)
+    document.querySelector('meta[name="twitter:title"]')?.setAttribute('content', title)
     document.querySelector('meta[name="twitter:description"]')?.setAttribute('content', description)
+
+    let canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]')
+    if (!canonical) {
+      canonical = document.createElement('link')
+      canonical.rel = 'canonical'
+      document.head.appendChild(canonical)
+    }
+    canonical.href = canonicalUrl
+
+    const existing = document.getElementById('rayvega-jsonld')
+    if (existing) existing.remove()
+    const jsonLd = document.createElement('script')
+    jsonLd.id = 'rayvega-jsonld'
+    jsonLd.type = 'application/ld+json'
+    jsonLd.textContent = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'Person',
+          name: SITE.name,
+          url: SITE.url,
+          jobTitle: 'IT & Systems Engineer',
+          knowsAbout: ['Systems', 'Infrastructure', 'Cloud', 'Cybersecurity', 'Automation', 'AI'],
+        },
+        {
+          '@type': 'WebSite',
+          name: SITE.name,
+          url: SITE.url,
+          inLanguage: language,
+        },
+        {
+          '@type': 'WebPage',
+          name: title,
+          description,
+          url: canonicalUrl,
+          inLanguage: language,
+          isPartOf: { '@type': 'WebSite', name: SITE.name, url: SITE.url },
+        },
+      ],
+    })
+    document.head.appendChild(jsonLd)
   }, [language])
 
   const value = useMemo(() => ({
