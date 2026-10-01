@@ -47,4 +47,6 @@ The production build outputs to `dist/`.
 
 The site is intended to be deployed as a static Vite application on Cloudflare.
 
-Current project URL/configuration is still being finalized.
+Current production URL: `https://rayvega.portfolio-81e.workers.dev/`.
+
+A custom domain can be attached later without changing the application routes.

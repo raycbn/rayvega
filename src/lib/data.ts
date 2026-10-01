@@ -3,7 +3,7 @@ export const SITE = {
   headline: 'IT & Systems · Cloud · Cybersecurity · Automation · AI',
   description:
     'Infrastructure, cloud, cybersecurity, automation and AI engineer building reliable systems and tooling. Portfolio of independent projects.',
-  url: 'https://rayvega.dev',
+  url: 'https://rayvega.portfolio-81e.workers.dev',
   email: undefined,
 } as const
 
