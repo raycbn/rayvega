@@ -78,6 +78,12 @@ html.dark {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -webkit-tap-highlight-color: transparent;
+    overflow-x: clip;
+  }
+
+  img,
+  svg {
+    max-width: 100%;
   }
 
   @media print {
