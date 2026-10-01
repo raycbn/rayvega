@@ -97,7 +97,52 @@ export function ProjectDetailPage({ projectId }: ProjectDetailPageProps) {
             </div>
           </motion.div>
         </div>
-      </section>      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
+      </section>
+      <section className="mx-auto max-w-6xl px-4 pt-12 sm:px-6 lg:px-8">
+        <div className="rounded-2xl border border-border bg-card/60 p-6 sm:p-8">
+          <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+            <div>
+              <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent">{language === 'es' ? 'Resumen' : 'Snapshot'}</p>
+              <div className="mt-5 grid grid-cols-2 gap-4">
+                <div>
+                  <p className="text-xs text-muted-foreground">{language === 'es' ? 'Área' : 'Domain'}</p>
+                  <p className="mt-1 text-sm font-medium text-foreground">{copy.category}</p>
+                </div>
+                <div>
+                  <p className="text-xs text-muted-foreground">{language === 'es' ? 'Fase' : 'Phase'}</p>
+                  <p className="mt-1 text-sm font-medium text-foreground">{copy.phase}</p>
+                </div>
+                <div>
+                  <p className="text-xs text-muted-foreground">{language === 'es' ? 'Tecnologías' : 'Technologies'}</p>
+                  <p className="mt-1 text-sm font-medium text-foreground">{project.technologies.length}</p>
+                </div>
+                <div>
+                  <p className="text-xs text-muted-foreground">{language === 'es' ? 'Estado' : 'Status'}</p>
+                  <p className="mt-1 text-sm font-medium text-foreground">
+                    {language === 'es'
+                      ? ({ production: 'Producción', 'in-progress': 'En desarrollo', archived: 'Archivado', draft: 'Prototipo' }[project.status])
+                      : statusLabel[project.status]}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <p className="text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground/60">
+                {language === 'es' ? 'Aspectos destacados' : 'Highlights'}
+              </p>
+              <ul className="mt-4 grid gap-3 sm:grid-cols-2">
+                {(copy.highlights ?? project.highlights ?? []).map((item) => (
+                  <li key={item} className="flex gap-3 text-sm leading-6 text-muted-foreground">
+                    <Check className="mt-1 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid gap-6 md:grid-cols-2">
           {detail.sections.map((section, index) => (
             <motion.article
