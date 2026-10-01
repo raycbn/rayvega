@@ -1,7 +1,7 @@
 import { ArrowLeft, ArrowUpRight, Check, ExternalLink } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { PROJECTS, statusLabel } from '../lib/data'
-import { PROJECT_DETAILS } from '../lib/projectDetails'
+import { getDetailCopy, getProjectCopy, useLanguage } from '../lib/i18n'
 import { Badge } from '../components/ui/Badge'
 import { ButtonLink } from '../components/ui/Button'
 
@@ -17,15 +17,17 @@ type ProjectDetailPageProps = {
 }
 
 export function ProjectDetailPage({ projectId }: ProjectDetailPageProps) {
+  const { language, t } = useLanguage()
   const project = PROJECTS.find((item) => item.id === projectId)
-  const detail = PROJECT_DETAILS[projectId]
+  const detail = getDetailCopy(language, projectId)
+  const copy = getProjectCopy(language, projectId)
 
   if (!project || !detail) {
     return (
       <main className="mx-auto max-w-4xl px-4 py-24 sm:px-6 lg:px-8">
-        <h1 className="text-3xl font-bold text-foreground">Project not found</h1>
+        <h1 className="text-3xl font-bold text-foreground">{t.detail.projectNotFound}</h1>
         <a href="/#projects" className="mt-5 inline-flex text-sm text-accent hover:underline">
-          Back to projects
+          {t.detail.back}
         </a>
       </main>
     )
@@ -41,7 +43,7 @@ export function ProjectDetailPage({ projectId }: ProjectDetailPageProps) {
             className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground"
           >
             <ArrowLeft className="h-4 w-4" aria-hidden="true" />
-            Back to projects
+            {t.detail.back}
           </a>
 
           <motion.div
@@ -53,7 +55,11 @@ export function ProjectDetailPage({ projectId }: ProjectDetailPageProps) {
               <span className="font-mono text-xs uppercase tracking-[0.16em] text-accent">
                 {detail.eyebrow}
               </span>
-              <Badge status={badgeStatus[project.status]}>{statusLabel[project.status]}</Badge>
+              <Badge status={badgeStatus[project.status]}>
+                {copy ? (language === 'es'
+                  ? ({ production: 'Producción', 'in-progress': 'En desarrollo', archived: 'Archivado', draft: 'Prototipo' }[project.status])
+                  : statusLabel[project.status]) : statusLabel[project.status]}
+              </Badge>
             </div>
             <h1 className="mt-5 text-4xl font-bold tracking-tight text-foreground sm:text-6xl">
               {detail.title}
@@ -62,7 +68,7 @@ export function ProjectDetailPage({ projectId }: ProjectDetailPageProps) {
               {detail.intro}
             </p>
             <p className="mt-6 max-w-3xl text-sm leading-7 text-muted-foreground">
-              {project.shortDescription}
+              {copy?.shortDescription ?? project.shortDescription}
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
@@ -74,7 +80,7 @@ export function ProjectDetailPage({ projectId }: ProjectDetailPageProps) {
                   variant="primary"
                   rightIcon={<ArrowUpRight className="h-4 w-4" />}
                 >
-                  View source
+                  {t.detail.viewSource}
                 </ButtonLink>
               ) : null}
               {project.demoUrl ? (
@@ -85,7 +91,7 @@ export function ProjectDetailPage({ projectId }: ProjectDetailPageProps) {
                   variant="secondary"
                   rightIcon={<ExternalLink className="h-4 w-4" />}
                 >
-                  Open live
+                  {t.detail.openLive}
                 </ButtonLink>
               ) : null}
             </div>
@@ -119,16 +125,16 @@ export function ProjectDetailPage({ projectId }: ProjectDetailPageProps) {
         </div>        <section className="mt-12 rounded-2xl border border-border bg-card/60 p-6 sm:p-8">
           <div className="grid gap-8 lg:grid-cols-2">
             <div>
-              <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent">Current state</p>
+              <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent">{t.detail.currentState}</p>
               <h2 className="mt-3 text-2xl font-bold tracking-tight text-foreground">
-                Where the project stands
+                {t.detail.currentTitle}
               </h2>
               <p className="mt-4 text-sm leading-7 text-muted-foreground">{detail.currentState}</p>
             </div>
             <div>
-              <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent">Next</p>
+              <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent">{t.detail.next}</p>
               <h2 className="mt-3 text-2xl font-bold tracking-tight text-foreground">
-                Direction
+                {t.detail.direction}
               </h2>
               <p className="mt-4 text-sm leading-7 text-muted-foreground">{detail.next}</p>
             </div>
@@ -136,7 +142,7 @@ export function ProjectDetailPage({ projectId }: ProjectDetailPageProps) {
         </section>
 
         <section className="mt-12 border-t border-border pt-10">
-          <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent">Stack</p>
+          <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent">{t.detail.stack}</p>
           <div className="mt-4 flex flex-wrap gap-2">
             {project.technologies.map((technology) => (
               <span

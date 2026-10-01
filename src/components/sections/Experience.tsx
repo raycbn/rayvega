@@ -1,51 +1,15 @@
 import { motion } from 'framer-motion'
 import { Section } from '../ui/Section'
 import { Timeline, TimelineItem } from '../ui/Timeline'
+import { getExperienceCopy, useLanguage } from '../../lib/i18n'
 
-const EXPERIENCES = [
-  {
-    role: 'IT & System Director',
-    company: 'Mnemo',
-    location: 'Madrid',
-    period: '2025 – 2026',
-    summary:
-      'Dirección y coordinación de sistemas e infraestructura IT en entornos on-premise y cloud, con foco en disponibilidad, continuidad y seguridad.',
-    highlights: [
-      'Gestión de incidencias críticas y seguridad de sistemas.',
-      'Administración de entornos VMware y servicios cloud.',
-      'Coordinación de equipos técnicos, proveedores y proyectos de infraestructura.',
-      'Participación en automatización y evolución de la plataforma.',
-    ],
-  },
-  {
-    role: 'Responsable de Proyectos y Sistemas',
-    company: 'Libnova / GSS',
-    location: 'Madrid',
-    period: '2022 – 2025',
-    summary:
-      'Gestión y coordinación de proyectos y servicios relacionados con sistemas e infraestructura tecnológica.',
-    highlights: [
-      'Administración, soporte y seguimiento de entornos y servicios.',
-      'Coordinación con clientes, proveedores y equipos técnicos.',
-      'Resolución de incidencias y necesidades operativas.',
-    ],
-  },
-  {
-    role: 'Técnico de Soporte y Atención al Cliente',
-    company: 'DACHSER',
-    location: 'Madrid',
-    period: '2021 – 2022',
-    summary:
-      'Soporte presencial a usuarios en un entorno multinacional, gestionando incidencias, solicitudes y necesidades técnicas.',
-    highlights: [
-      'Resolución y seguimiento de incidencias.',
-      'Comunicación directa con usuarios y equipos implicados.',
-      'Atención en entornos internacionales y multiculturales.',
-    ],
-  },
-] as const
+const PERIODS = ['2025 – 2026', '2022 – 2025', '2021 – 2022'] as const
+const COMPANIES = ['Mnemo', 'Libnova / GSS', 'DACHSER'] as const
 
 export function Experience() {
+  const { language, t } = useLanguage()
+  const experiences = getExperienceCopy(language)
+
   return (
     <Section id="experience">
       <motion.div
@@ -56,20 +20,21 @@ export function Experience() {
         className="flex flex-col gap-1"
       >
         <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent">
-          Career
+          {t.experience.eyebrow}
         </p>
         <h2 className="mt-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-          Experience
+          {t.experience.title}
         </h2>
         <p className="mt-2 max-w-3xl text-lg leading-7 text-muted-foreground">
-          Systems, infrastructure and technical project experience across enterprise operations,
-          on-premise environments and cloud platforms.
+          {t.experience.description}
         </p>
-      </motion.div>      <div className="mt-12 sm:mt-16">
+      </motion.div>
+
+      <div className="mt-12 sm:mt-16">
         <Timeline>
-          {EXPERIENCES.map((experience, index) => (
+          {experiences.map((experience, index) => (
             <motion.div
-              key={experience.company + experience.role}
+              key={COMPANIES[index]}
               initial={{ opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '0px' }}
@@ -77,20 +42,19 @@ export function Experience() {
             >
               <TimelineItem>
                 <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
-                  <div className="max-w-3xl">
-                    <p className="font-mono text-xs uppercase tracking-[0.14em] text-accent">
+                  <div className="max-w-3xl">                    <p className="font-mono text-xs uppercase tracking-[0.14em] text-accent">
                       {experience.company}
                     </p>
                     <h3 className="mt-2 text-xl font-semibold tracking-tight text-foreground">
                       {experience.role}
                     </h3>
-                    <p className="mt-1 text-sm text-muted-foreground">{experience.location}</p>
+                    <p className="mt-1 text-sm text-muted-foreground">Madrid</p>
                     <p className="mt-4 text-sm leading-6 text-muted-foreground">
                       {experience.summary}
                     </p>
                   </div>
                   <span className="shrink-0 rounded-full border border-border bg-muted/30 px-3 py-1.5 font-mono text-xs text-muted-foreground">
-                    {experience.period}
+                    {PERIODS[index]}
                   </span>
                 </div>
 
@@ -111,9 +75,9 @@ export function Experience() {
         </Timeline>
       </div>      <div className="mt-12 grid gap-4 border-t border-border pt-8 sm:grid-cols-3">
         {[
-          ['Scope', 'Systems · Infrastructure · Projects'],
-          ['Environment', 'On-premise · Hybrid · Cloud'],
-          ['Focus', 'Availability · Security · Operations'],
+          [t.experience.scope, t.experience.scopeValue],
+          [t.experience.environment, t.experience.environmentValue],
+          [t.experience.focus, t.experience.focusValue],
         ].map(([label, value]) => (
           <div key={label}>
             <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground/60">

@@ -5,6 +5,7 @@ import { Section } from '../ui/Section'
 import { cn } from '../../lib/utils'
 import { GitHub } from '../ui/GitHubIcon'
 import { LinkedIn } from '../ui/LinkedInIcon'
+import { useLanguage } from '../../lib/i18n'
 
 type Method = {
   id: string
@@ -25,14 +26,16 @@ const methods: Method[] = [
 ]
 
 export function Contact() {
+  const { t } = useLanguage()
+
   return (
     <Section id="contact">
       <div className="flex flex-col gap-1">
         <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-          Contact
+          {t.contact.title}
         </h2>
         <p className="mt-2 max-w-2xl text-lg text-muted-foreground">
-          Let's connect.
+          {t.contact.description}
         </p>
       </div>
 
@@ -55,11 +58,11 @@ export function Contact() {
                 m.id === 'email' ? 'text-accent hover:underline' : '',
               )}
               >
-                {m.label}
+                {m.id === 'email' ? t.contact.email : m.label}
               </a>
             ) : (
               <span className="text-sm text-muted-foreground">
-                {m.label} — pending
+                {m.id === 'email' ? t.contact.email : m.label} — {t.contact.pending}
               </span>
             )}
           </li>
