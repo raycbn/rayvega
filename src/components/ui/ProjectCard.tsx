@@ -1,4 +1,4 @@
-import { Code } from 'lucide-react'
+import { ArrowUpRight, Code } from 'lucide-react'
 import type { ComponentPropsWithoutRef } from 'react'
 import type { Project } from '../../lib/data'
 import { statusLabel } from '../../lib/data'
@@ -25,7 +25,7 @@ export function ProjectCard({ project, className }: ProjectCardProps) {
   return (
     <article
       className={cn(
-        'group relative flex flex-col overflow-hidden rounded-xl border bg-card text-card-foreground transition-[box-shadow,transform] hover:translate-y-[-2px] hover:shadow-lg',
+        'group relative flex flex-col overflow-hidden rounded-2xl border bg-card/80 text-card-foreground shadow-sm backdrop-blur-sm transition-[border-color,box-shadow,transform] hover:translate-y-[-2px] hover:border-accent/40 hover:shadow-xl',
         featured
           ? 'border-accent/50 ring-1 ring-accent/20'
           : 'border-border',
@@ -54,29 +54,44 @@ export function ProjectCard({ project, className }: ProjectCardProps) {
 
       <div className="flex flex-1 flex-col p-5 sm:p-6">
         <header className="flex items-start justify-between gap-3">
-          <h3 className="text-xl font-semibold text-foreground">{project.name}</h3>
-          {project.status ? (
-            <Badge status={badgeStatus[project.status]}>{statusLabel[project.status]}</Badge>
-          ) : null}
+          <div>
+            <div className="mb-2 flex flex-wrap items-center gap-2">
+              <span className="text-[11px] font-medium uppercase tracking-[0.16em] text-accent">
+                {project.category}
+              </span>
+              {project.phase ? (
+                <span className="text-[11px] text-muted-foreground/70">· {project.phase}</span>
+              ) : null}
+            </div>
+            <h3 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+              {project.name}
+            </h3>
+          </div>
+          <Badge status={badgeStatus[project.status]}>{statusLabel[project.status]}</Badge>
         </header>
 
-        {project.description ? (
-          <p className="mt-2 text-sm text-muted-foreground">{project.description}</p>
-        ) : (
-          <p className="mt-2 text-sm text-muted-foreground/60">
-            Project details coming soon.
-          </p>
-        )}
+        <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground sm:text-base">
+          {project.shortDescription}
+        </p>
 
-        {project.technologies && project.technologies.length > 0 ? (
-          <ul className="mt-3 flex flex-wrap gap-1.5">
-            {project.technologies.map((tech) => (
-              <li key={tech}>
-                <span className="text-xs text-muted-foreground/80">{tech}</span>
+        {project.highlights && project.highlights.length > 0 ? (
+          <ul className="mt-4 space-y-2">
+            {project.highlights.slice(0, 4).map((highlight) => (
+              <li key={highlight} className="flex gap-2 text-sm text-muted-foreground">
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent/80" aria-hidden="true" />
+                <span>{highlight}</span>
               </li>
             ))}
           </ul>
         ) : null}
+
+        <ul className="mt-5 flex flex-wrap gap-x-3 gap-y-1.5">
+          {project.technologies.map((tech) => (
+            <li key={tech}>
+              <span className="font-mono text-[11px] text-muted-foreground/75">{tech}</span>
+            </li>
+          ))}
+        </ul>
 
         <div className="mt-4 flex flex-wrap gap-2">
           {project.githubUrl ? (
@@ -91,6 +106,16 @@ export function ProjectCard({ project, className }: ProjectCardProps) {
               Code
             </ButtonLink>
           ) : null}
+          {project.detailUrl ? (
+            <ButtonLink
+              href={project.detailUrl}
+              size="sm"
+              variant="primary"
+              rightIcon={<ArrowUpRight className="h-3.5 w-3.5" />}
+            >
+              Case study
+            </ButtonLink>
+          ) : null}
           {project.demoUrl ? (
             <ButtonLink
               href={project.demoUrl}
@@ -98,8 +123,9 @@ export function ProjectCard({ project, className }: ProjectCardProps) {
               rel="noopener noreferrer"
               size="sm"
               variant="secondary"
+              rightIcon={<ArrowUpRight className="h-3.5 w-3.5" />}
             >
-              Demo
+              Live
             </ButtonLink>
           ) : null}
         </div>

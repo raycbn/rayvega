@@ -4,7 +4,7 @@ import { cn } from '../../lib/utils'
 export function Section({ className, children, ...props }: ComponentPropsWithoutRef<'section'>) {
   return (
     <section
-      className={cn('mx-auto w-full max-w-7xl px-6 md:px-8 py-16 sm:py-20 lg:py-24', className)}
+      className={cn('mx-auto w-full max-w-6xl px-6 py-20 sm:py-24 md:px-8 lg:py-28', className)}
       {...props}
     >
       {children}

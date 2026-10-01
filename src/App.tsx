@@ -7,12 +7,20 @@ import { Experience } from './components/sections/Experience'
 import { Technologies } from './components/sections/Technologies'
 import { Lab } from './components/sections/Lab'
 import { Contact } from './components/sections/Contact'
+import { NexusPage } from './pages/NexusPage'
+import { ProjectDetailPage } from './pages/ProjectDetailPage'
 
 export default function App() {
+  const path = window.location.pathname.replace(/\/$/, '') || '/'
+  const projectPrefix = '/projects/'
+  const projectId = path.startsWith(projectPrefix) ? path.slice(projectPrefix.length) : ''
+  const isNexusPage = projectId === 'nexus'
+  const isProjectDetailPage = Boolean(projectId)
+
   return (
     <>
       <Header />
-      <main>
+      {isNexusPage ? <NexusPage /> : isProjectDetailPage ? <ProjectDetailPage projectId={projectId} /> : <main>
         <Hero />
         <Projects />
         <About />
@@ -20,7 +28,7 @@ export default function App() {
         <Technologies />
         <Lab />
         <Contact />
-      </main>
+      </main>}
       <Footer />
     </>
   )

@@ -1,66 +1,113 @@
+import { ArrowDown, ArrowUpRight } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { SOCIAL, SITE } from '../../lib/data'
 import { ButtonLink } from '../ui/Button'
 import { GitHub } from '../ui/GitHubIcon'
 import { LinkedIn } from '../ui/LinkedInIcon'
 
+const FOCUS_AREAS = ['Systems', 'Cloud', 'Cybersecurity', 'Automation', 'AI'] as const
+
 export function Hero() {
   return (
-    <section id="hero" className="relative isolate overflow-hidden">
-      <div className="mx-auto flex min-h-[calc(100dvh-4rem)] w-full max-w-3xl flex-col items-center gap-8 px-6 py-20 text-center lg:px-8 lg:py-28">
+    <section
+      id="hero"
+      className="relative isolate flex min-h-[calc(100dvh-4rem)] items-center overflow-hidden"
+    >
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_75%_35%,var(--accent)/0.12,transparent_30%),radial-gradient(circle_at_20%_80%,var(--primary)/0.08,transparent_28%)]"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute left-1/2 top-0 -z-10 h-px w-[70vw] -translate-x-1/2 bg-gradient-to-r from-transparent via-accent/30 to-transparent"
+      />
+
+      <div className="mx-auto grid w-full max-w-6xl items-center gap-12 px-6 py-20 sm:py-24 md:px-8 lg:grid-cols-[minmax(0,1.45fr)_minmax(260px,0.55fr)] lg:gap-16 lg:py-28">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: 'easeOut' }}
-          className="w-full"
+          transition={{ duration: 0.55, ease: 'easeOut' }}
+          className="max-w-3xl"
         >
-          <p className="text-sm font-medium tracking-widest uppercase text-muted-foreground">
-            {SITE.name}
-          </p>
-          <h1 className="mt-4 text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl/tight">
-            {SITE.headline}
+          <div className="inline-flex items-center gap-2 rounded-full border border-border/80 bg-card/70 px-3 py-1 text-xs font-medium tracking-[0.18em] text-muted-foreground shadow-sm backdrop-blur-sm">
+            <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />
+            RAY VEGA
+          </div>
+
+          <h1 className="mt-7 max-w-4xl text-5xl font-semibold tracking-[-0.04em] text-foreground sm:text-6xl lg:text-7xl">
+            IT &amp; Systems
+            <span className="mt-1 block text-accent">Cloud · Cybersecurity · Automation · AI</span>
           </h1>
-          <p className="mt-6 text-lg text-muted-foreground">
+
+          <p className="mt-7 max-w-2xl text-lg leading-8 text-muted-foreground sm:text-xl">
             {SITE.description}
           </p>
-        </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: 'easeOut', delay: 0.08 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-3"
-        >
-          <ButtonLink href="#projects" variant="primary" size="lg">
-            View projects
-          </ButtonLink>
-          <ButtonLink
-            href={SOCIAL.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            variant="secondary"
-            leftIcon={<GitHub className="h-4 w-4" />}
-          >
-            GitHub
-          </ButtonLink>
-          {SOCIAL.linkedin ? (
+          <div className="mt-9 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
+            <ButtonLink href="#projects" variant="primary" size="lg" rightIcon={<ArrowUpRight className="h-4 w-4" />}>
+              View projects
+            </ButtonLink>
             <ButtonLink
-              href={SOCIAL.linkedin}
+              href={SOCIAL.github}
               target="_blank"
               rel="noopener noreferrer"
               variant="secondary"
-              leftIcon={<LinkedIn className="h-4 w-4" />}
+              size="lg"
+              leftIcon={<GitHub className="h-4 w-4" />}
             >
-              LinkedIn
+              GitHub
             </ButtonLink>
-          ) : null}
-        </motion.div>
-      </div>
+            {SOCIAL.linkedin ? (
+              <ButtonLink
+                href={SOCIAL.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                variant="secondary"
+                size="lg"
+                leftIcon={<LinkedIn className="h-4 w-4" />}
+              >
+                LinkedIn
+              </ButtonLink>
+            ) : null}
+          </div>
 
-      <div
-        aria-hidden="true"
-        className="absolute -top-24 -right-24 h-80 w-80 -z-1 rounded-full bg-accent/10 blur-3xl"
-      />
+          <a
+            href="#about"
+            className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+          >
+            Explore the profile
+            <ArrowDown className="h-4 w-4" aria-hidden="true" />
+          </a>
+        </motion.div>
+
+        <motion.aside
+          initial={{ opacity: 0, x: 18 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.55, ease: 'easeOut', delay: 0.12 }}
+          className="hidden lg:block"
+          aria-label="Areas of focus"
+        >
+          <div className="rounded-2xl border border-border/80 bg-card/65 p-5 shadow-xl shadow-black/5 backdrop-blur-md">
+            <div className="flex items-center justify-between border-b border-border/70 pb-4">
+              <span className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
+                Focus areas
+              </span>
+              <span className="font-mono text-[10px] text-muted-foreground/70">01—05</span>
+            </div>
+
+            <ul className="mt-2 divide-y divide-border/60">
+              {FOCUS_AREAS.map((area, index) => (
+                <li key={area} className="flex items-center justify-between py-4">
+                  <span className="font-mono text-xs text-muted-foreground/70">
+                    0{index + 1}
+                  </span>
+                  <span className="text-sm font-medium text-foreground">{area}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </motion.aside>
+      </div>
     </section>
   )
 }

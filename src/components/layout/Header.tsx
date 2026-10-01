@@ -12,7 +12,7 @@ export function Header() {
   const [open, setOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-border/40 bg-background/60 backdrop-blur-sm">
+    <header className="sticky top-0 z-40 w-full border-b border-border/50 bg-background/70 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 md:px-8">
         <a href="#hero" className="text-lg font-semibold tracking-tight text-foreground">
           Ray Vega

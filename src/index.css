@@ -19,35 +19,37 @@
 }
 
 :root {
-  --background: oklch(0.98 0 0);
-  --foreground: oklch(0.13 0 0);
-  --card: oklch(0.995 0 0);
-  --card-foreground: oklch(0.13 0 0);
-  --primary: oklch(0.62 0.22 252);
-  --primary-foreground: oklch(0.98 0 0);
-  --accent: oklch(0.62 0.22 252);
-  --accent-foreground: oklch(0.98 0 0);
-  --muted: oklch(0.92 0 0);
-  --muted-foreground: oklch(0.45 0 0);
-  --border: oklch(0.87 0 0);
-  --input: oklch(0.85 0 0);
-  --ring: oklch(0.62 0.22 252);
+  --background: oklch(0.975 0.008 255);
+  --foreground: oklch(0.16 0.02 255);
+  --card: oklch(0.995 0.004 255);
+  --card-foreground: oklch(0.16 0.02 255);
+  --primary: oklch(0.55 0.2 255);
+  --primary-foreground: oklch(0.985 0.004 255);
+  --accent: oklch(0.62 0.2 245);
+  --accent-foreground: oklch(0.985 0.004 255);
+  --muted: oklch(0.94 0.01 255);
+  --muted-foreground: oklch(0.46 0.025 255);
+  --border: oklch(0.89 0.014 255);
+  --input: oklch(0.86 0.016 255);
+  --ring: oklch(0.62 0.2 245);
+  --grid-line: oklch(0.84 0.015 255 / 0.45);
 }
 
 html.dark {
-  --background: oklch(0.115 0 0);
-  --foreground: oklch(0.92 0 0);
-  --card: oklch(0.16 0 0);
-  --card-foreground: oklch(0.92 0 0);
-  --primary: oklch(0.64 0.23 252);
-  --primary-foreground: oklch(0.98 0 0);
-  --accent: oklch(0.64 0.23 252);
-  --accent-foreground: oklch(0.98 0 0);
-  --muted: oklch(0.22 0 0);
-  --muted-foreground: oklch(0.58 0 0);
-  --border: oklch(0.28 0 0);
-  --input: oklch(0.28 0 0);
-  --ring: oklch(0.64 0.23 252);
+  --background: oklch(0.105 0.012 255);
+  --foreground: oklch(0.94 0.008 255);
+  --card: oklch(0.145 0.016 255);
+  --card-foreground: oklch(0.94 0.008 255);
+  --primary: oklch(0.68 0.2 255);
+  --primary-foreground: oklch(0.12 0.015 255);
+  --accent: oklch(0.74 0.17 235);
+  --accent-foreground: oklch(0.12 0.015 255);
+  --muted: oklch(0.19 0.018 255);
+  --muted-foreground: oklch(0.66 0.018 255);
+  --border: oklch(0.25 0.02 255);
+  --input: oklch(0.25 0.02 255);
+  --ring: oklch(0.74 0.17 235);
+  --grid-line: oklch(0.25 0.02 255 / 0.45);
 }
 
 @layer base {
@@ -59,14 +61,20 @@ html.dark {
   }
 
   body {
+    min-width: 320px;
     background-color: var(--background);
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 48px 48px;
+    background-position: center top;
     color: var(--foreground);
     font-family:
-      -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
-      Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
-      sans-serif;
+      Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji",
+      "Segoe UI Symbol", sans-serif;
     font-size: 1rem;
-    line-height: 1.5;
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -webkit-tap-highlight-color: transparent;
@@ -78,14 +86,14 @@ html.dark {
   }
 
   a {
-    color: var(--accent);
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 0.25em;
+    color: inherit;
+    text-decoration: none;
   }
 
-  a:hover {
-    text-decoration-thickness: auto;
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
   }
 
   button {

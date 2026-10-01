@@ -12,15 +12,18 @@ export function Projects() {
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '0 0 -40px' }}
+        viewport={{ once: true, margin: '0px' }}
         transition={{ duration: 0.5, ease: 'easeOut' }}
         className="flex flex-col gap-1"
       >
         <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-          Projects
+          Selected work
         </h2>
         <p className="mt-2 max-w-2xl text-lg text-muted-foreground">
-          A selection of systems I&apos;ve built across infrastructure, cloud, and automation.
+          Products, infrastructure platforms and technical tools built across systems, cloud, software and AI.
+        </p>
+        <p className="mt-4 font-mono text-xs uppercase tracking-[0.16em] text-muted-foreground/60">
+          {PROJECTS.length} projects · currently tracked from active repositories and local builds
         </p>
       </motion.div>
 
@@ -29,7 +32,7 @@ export function Projects() {
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: '0px' }}
             transition={{ duration: 0.5, ease: 'easeOut' }}
             className="md:col-span-2"
           >
@@ -42,7 +45,7 @@ export function Projects() {
             key={project.id}
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: '0px' }}
             transition={{ duration: 0.5, ease: 'easeOut', delay: index * 0.05 }}
           >
             <ProjectCard project={project} />
