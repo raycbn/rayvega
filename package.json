@@ -1,7 +1,7 @@
 {
   "name": "rayvega",
   "private": true,
-  "version": "0.9.0-rc.1",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,7 +10,8 @@
     "typecheck": "tsc -b --noEmit",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
-    "qa": "node scripts/qa.mjs"
+    "qa": "node scripts/qa.mjs",
+    "deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {
     "framer-motion": "^13.4.6",

@@ -1,7 +1,7 @@
-﻿# Ray Vega Portfolio — Release Candidate
+# Ray Vega Portfolio — Release
 
 ## Version
-0.9.0-rc.1
+1.0.0
 
 ## Release candidate scope
 
