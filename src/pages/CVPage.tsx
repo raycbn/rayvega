@@ -14,10 +14,14 @@ export function CVPage() {
     () => TECH_CATEGORIES.map((group) => ({
       label: language === 'es'
         ? ({
-            infrastructure: 'Infraestructura',
+            systems: 'Sistemas y empresa',
             cloud: 'Cloud / DevOps',
             development: 'Desarrollo',
+            backend: 'Backend, datos y APIs',
+            platforms: 'Producto y plataformas',
+            security: 'Seguridad e identidad',
             ai: 'IA / Automatización',
+            quality: 'Testing y calidad',
           }[group.id])
         : group.label,
       technologies: group.technologies,

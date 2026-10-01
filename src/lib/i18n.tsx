@@ -1,6 +1,6 @@
 /* oxlint-disable react/only-export-components */
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
-import { PROJECTS, SITE } from './data'
+import { PROJECTS, SITE, TECH_CATEGORIES } from './data'
 
 export type Language = 'en' | 'es'
 
@@ -592,8 +592,10 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
     const path = window.location.pathname.replace(/\/$/, '') || '/'
     const projectId = path.startsWith('/projects/') ? path.slice('/projects/'.length) : ''
+    const technologySlug = path.startsWith('/technologies/') ? path.slice('/technologies/'.length) : ''
     const project = PROJECTS.find((item) => item.id === projectId)
     const detail = projectId ? getDetailCopy(language, projectId) : undefined
+    const technology = TECH_CATEGORIES.flatMap((category) => category.technologies).find((item) => item.toLowerCase().replace(/[^a-z0-9]+/g, '-') === technologySlug)
 
     const homeTitle = language === 'es'
       ? 'Ray Vega — Ingeniero de Sistemas IT | Cloud, Ciberseguridad, Automatización, IA'
@@ -610,6 +612,16 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     } else if (project && detail) {
       title = detail.title + ' — Ray Vega'
       description = detail.intro
+    } else if (technology && technologySlug) {
+      title = technology + ' — Ray Vega'
+      description = language === 'es'
+        ? `${technology} dentro del stack técnico representado en el portfolio de Ray Vega.`
+        : `${technology} within the technical stack represented in Ray Vega's portfolio.`
+    } else if (path === '/documents/projects' || path === '/documents/technical-profile') {
+      title = path.endsWith('projects')
+        ? (language === 'es' ? 'Proyectos — Ray Vega' : 'Projects — Ray Vega')
+        : (language === 'es' ? 'Perfil técnico — Ray Vega' : 'Technical Profile — Ray Vega')
+      description = language === 'es' ? 'Vista imprimible del portfolio profesional y técnico.' : 'Printable view of the professional and technical portfolio.'
     }
 
     const canonicalUrl = new URL(path === '/' ? '/' : path, SITE.url).toString()
@@ -660,6 +672,26 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
           url: canonicalUrl,
           inLanguage: language,
           isPartOf: { '@type': 'WebSite', name: SITE.name, url: SITE.url },
+        },
+        {
+          '@type': 'ItemList',
+          name: language === 'es' ? 'Proyectos de Ray Vega' : 'Ray Vega projects',
+          itemListElement: PROJECTS.map((item, index) => ({
+            '@type': 'ListItem',
+            position: index + 1,
+            name: item.name,
+            url: new URL(item.detailUrl ?? '/#projects', SITE.url).toString(),
+          })),
+        },
+        {
+          '@type': 'BreadcrumbList',
+          itemListElement: path.startsWith('/projects/') || path.startsWith('/technologies/')
+            ? [
+                { '@type': 'ListItem', position: 1, name: language === 'es' ? 'Inicio' : 'Home', item: new URL('/', SITE.url).toString() },
+                { '@type': 'ListItem', position: 2, name: path.startsWith('/projects/') ? (language === 'es' ? 'Proyectos' : 'Projects') : (language === 'es' ? 'Tecnologías' : 'Technologies'), item: new URL(path.startsWith('/projects/') ? '/#projects' : '/#technologies', SITE.url).toString() },
+                { '@type': 'ListItem', position: 3, name: title, item: canonicalUrl },
+              ]
+            : undefined,
         },
       ],
     })
