@@ -80,6 +80,20 @@ html.dark {
     -webkit-tap-highlight-color: transparent;
   }
 
+  @media print {
+    body {
+      background: white !important;
+      color: black !important;
+      background-image: none !important;
+    }
+
+    header,
+    footer,
+    .cv-actions {
+      display: none !important;
+    }
+  }
+
   ::selection {
     background-color: var(--accent);
     color: var(--accent-foreground);

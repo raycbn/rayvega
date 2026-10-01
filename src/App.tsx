@@ -7,6 +7,7 @@ import { Experience } from './components/sections/Experience'
 import { Technologies } from './components/sections/Technologies'
 import { Lab } from './components/sections/Lab'
 import { Contact } from './components/sections/Contact'
+import { CVPage } from './pages/CVPage'
 import { NexusPage } from './pages/NexusPage'
 import { ProjectDetailPage } from './pages/ProjectDetailPage'
 
@@ -16,11 +17,12 @@ export default function App() {
   const projectId = path.startsWith(projectPrefix) ? path.slice(projectPrefix.length) : ''
   const isNexusPage = projectId === 'nexus'
   const isProjectDetailPage = Boolean(projectId)
+  const isCvPage = path === '/cv'
 
   return (
     <>
       <Header />
-      {isNexusPage ? <NexusPage /> : isProjectDetailPage ? <ProjectDetailPage projectId={projectId} /> : <main>
+      {isCvPage ? <CVPage /> : isNexusPage ? <NexusPage /> : isProjectDetailPage ? <ProjectDetailPage projectId={projectId} /> : <main>
         <Hero />
         <Projects />
         <About />

@@ -13,6 +13,7 @@ type TextDictionary = {
   contact: Record<string, string>
   projects: Record<string, string>
   detail: Record<string, string>
+  cv: Record<string, string>
   nexus: Record<string, string | string[]>
   common: Record<string, string>
 }
@@ -23,6 +24,7 @@ const EN: TextDictionary = {
     projects: 'Projects',
     about: 'About',
     experience: 'Experience',
+    cv: 'CV',
     technologies: 'Technologies',
     lab: 'Lab',
     contact: 'Contact',
@@ -84,6 +86,19 @@ const EN: TextDictionary = {
     ai: 'AI, agent tooling and controlled automation.',
     technologyCount: 'technologies',
     pending: 'Pending',
+  },
+  cv: {
+    title: 'Curriculum Vitae',
+    subtitle: 'IT & Systems Engineer',
+    summary: 'Systems and infrastructure engineer focused on reliable enterprise environments, cloud, cybersecurity, automation and practical software tooling.',
+    print: 'Print / Save PDF',
+    experience: 'Experience',
+    education: 'Education',
+    skills: 'Core skills',
+    projects: 'Selected projects',
+    location: 'Madrid, Spain',
+    current: 'Current professional profile',
+    sourceNote: 'This web CV reflects the public professional profile represented across this portfolio.',
   },
   lab: {
     title: 'Lab',
@@ -162,6 +177,7 @@ const ES: TextDictionary = {
     projects: 'Proyectos',
     about: 'Sobre mí',
     experience: 'Experiencia',
+    cv: 'CV',
     technologies: 'Tecnologías',
     lab: 'Laboratorio',
     contact: 'Contacto',
@@ -223,6 +239,19 @@ const ES: TextDictionary = {
     ai: 'IA, herramientas para agentes y automatización controlada.',
     technologyCount: 'tecnologías',
     pending: 'Pendiente',
+  },
+  cv: {
+    title: 'Currículum Vitae',
+    subtitle: 'Ingeniero de Sistemas IT',
+    summary: 'Ingeniero de sistemas e infraestructura centrado en entornos empresariales fiables, cloud, ciberseguridad, automatización y herramientas de software prácticas.',
+    print: 'Imprimir / Guardar PDF',
+    experience: 'Experiencia',
+    education: 'Formación',
+    skills: 'Competencias principales',
+    projects: 'Proyectos seleccionados',
+    location: 'Madrid, España',
+    current: 'Perfil profesional actual',
+    sourceNote: 'Este CV web refleja el perfil profesional público representado en este portfolio.',
   },
   lab: {
     title: 'Laboratorio',
