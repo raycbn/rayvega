@@ -89,9 +89,11 @@ const EN: TextDictionary = {
   },
   contact: {
     title: 'Contact',
-    description: 'Let’s connect.',
-    pending: 'pending',
-    email: 'Email',
+    description: 'Explore my public work, repositories and technical projects.',
+    primaryLabel: 'GitHub profile',
+    primaryText: 'Source code, experiments and active project repositories.',
+    openProfile: 'Open GitHub profile',
+    profileNote: 'Public profile',
   },
   projects: {
     title: 'Selected work',
@@ -223,9 +225,11 @@ const ES: TextDictionary = {
   },
   contact: {
     title: 'Contacto',
-    description: 'Hablemos.',
-    pending: 'pendiente',
-    email: 'Correo electrónico',
+    description: 'Explora mis proyectos públicos, repositorios y trabajo técnico.',
+    primaryLabel: 'Perfil de GitHub',
+    primaryText: 'Código fuente, experimentos y repositorios de proyectos activos.',
+    openProfile: 'Abrir perfil de GitHub',
+    profileNote: 'Perfil público',
   },
   projects: {
     title: 'Proyectos seleccionados',

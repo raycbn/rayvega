@@ -1,73 +1,63 @@
-import { Mail } from 'lucide-react'
-import type { ComponentType } from 'react'
+import { ArrowUpRight } from 'lucide-react'
+import { motion } from 'framer-motion'
 import { SOCIAL } from '../../lib/data'
 import { Section } from '../ui/Section'
-import { cn } from '../../lib/utils'
-import { GitHub } from '../ui/GitHubIcon'
-import { LinkedIn } from '../ui/LinkedInIcon'
 import { useLanguage } from '../../lib/i18n'
-
-type Method = {
-  id: string
-  label: string
-  Icon: ComponentType<{ className?: string }>
-  href: string | undefined
-}
-
-const methods: Method[] = [
-  { id: 'github', label: 'GitHub', Icon: GitHub, href: SOCIAL.github },
-  { id: 'linkedin', label: 'LinkedIn', Icon: LinkedIn, href: SOCIAL.linkedin },
-  {
-    id: 'email',
-    label: 'Email',
-    Icon: Mail,
-    href: SOCIAL.email ? `mailto:${SOCIAL.email}` : undefined,
-  },
-]
+import { GitHub } from '../ui/GitHubIcon'
 
 export function Contact() {
   const { t } = useLanguage()
 
   return (
     <Section id="contact">
-      <div className="flex flex-col gap-1">
-        <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '0px' }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+      >
+        <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent">
+          {t.contact.primaryLabel}
+        </p>
+        <h2 className="mt-3 max-w-2xl text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
           {t.contact.title}
         </h2>
-        <p className="mt-2 max-w-2xl text-lg text-muted-foreground">
+        <p className="mt-3 max-w-2xl text-lg leading-7 text-muted-foreground">
           {t.contact.description}
         </p>
-      </div>
-
-      <ul className="mt-8 flex flex-col gap-3 sm:gap-4">
-        {methods.map((m) => (
-          <li key={m.id} className="flex items-center gap-3">
-            <span
-              aria-hidden="true"
-              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md text-muted-foreground"
-            >
-              <m.Icon className="h-4 w-4" />
+      </motion.div>      <motion.a
+        href={SOCIAL.github}
+        target="_blank"
+        rel="noopener noreferrer"
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '0px' }}
+        transition={{ duration: 0.45, ease: 'easeOut', delay: 0.08 }}
+        className="group mt-10 block max-w-3xl rounded-2xl border border-border bg-card/70 p-6 shadow-sm backdrop-blur-sm transition-colors hover:border-accent/40 hover:bg-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+      >
+        <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-start gap-4">
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent">
+              <GitHub className="h-5 w-5" aria-hidden="true" />
             </span>
-            {m.href ? (
-              <a
-                href={m.href}
-                target={m.id === 'email' ? undefined : '_blank'}
-                rel={m.id === 'email' ? undefined : 'noopener noreferrer'}
-              className={cn(
-                'text-sm text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',
-                m.id === 'email' ? 'text-accent hover:underline' : '',
-              )}
-              >
-                {m.id === 'email' ? t.contact.email : m.label}
-              </a>
-            ) : (
-              <span className="text-sm text-muted-foreground">
-                {m.id === 'email' ? t.contact.email : m.label} — {t.contact.pending}
-              </span>
-            )}
-          </li>
-        ))}
-      </ul>
+            <div>
+              <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground/60">
+                {t.contact.profileNote}
+              </p>
+              <h3 className="mt-1 text-lg font-semibold text-foreground">
+                {t.contact.primaryLabel}
+              </h3>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                {t.contact.primaryText}
+              </p>
+            </div>
+          </div>
+          <span className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg border border-border bg-background/70 px-4 py-2.5 text-sm font-medium text-foreground transition-colors group-hover:border-accent/30 group-hover:text-accent">
+            {t.contact.openProfile}
+            <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+          </span>
+        </div>
+      </motion.a>
     </Section>
   )
 }
