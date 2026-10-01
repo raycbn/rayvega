@@ -200,26 +200,153 @@ export const PROJECTS: Project[] = [
   },
 ]
 
-export const TECH_CATEGORIES = [
+export type TechnologyEvidence = 'professional' | 'projects' | 'mixed'
+
+export type TechnologyCategory = {
+  id: string
+  label: string
+  evidence: TechnologyEvidence
+  technologies: readonly string[]
+}
+
+export const TECH_CATEGORIES: readonly TechnologyCategory[] = [
   {
-    id: 'infrastructure',
-    label: 'Infrastructure',
-    technologies: ['Windows Server', 'Linux / RHEL', 'Active Directory', 'VMware vSphere / ESXi / vCenter', 'SAN / NAS', 'NetApp', 'Citrix', 'SQL Server', 'PostgreSQL', 'Kubernetes', 'OpenShift'],
+    id: 'systems',
+    label: 'Systems & enterprise',
+    evidence: 'professional',
+    technologies: [
+      'Windows Server',
+      'Windows administration',
+      'Linux / RHEL',
+      'Active Directory',
+      'VMware vSphere / ESXi / vCenter',
+      'SAN / NAS',
+      'NetApp',
+      'Citrix',
+      'PowerShell',
+      'Bash',
+      'Kubernetes',
+      'OpenShift',
+    ],
   },
   {
     id: 'cloud',
-    label: 'Cloud / DevOps',
-    technologies: ['Azure', 'AWS', 'Docker', 'Terraform', 'Ansible', 'PowerShell', 'Bash', 'Vite', 'Firebase', 'Cloudflare'],
+    label: 'Cloud & DevOps',
+    evidence: 'mixed',
+    technologies: [
+      'Azure',
+      'AWS',
+      'Docker',
+      'Terraform',
+      'Ansible',
+      'Cloudflare',
+      'Cloudflare Tunnel',
+      'Firebase Hosting',
+      'Git / GitHub',
+    ],
   },
   {
     id: 'development',
-    label: 'Development',
-    technologies: ['Python', 'TypeScript', 'JavaScript', 'React', 'Flutter', 'Dart', 'FastAPI', 'Node.js', 'Express', 'Tailwind CSS', 'Vitest', 'Playwright'],
+    label: 'Software engineering',
+    evidence: 'projects',
+    technologies: [
+      'Python',
+      'TypeScript',
+      'JavaScript',
+      'HTML',
+      'CSS',
+      'SQL',
+      'React',
+      'Next.js',
+      'Flutter',
+      'Dart',
+      'Node.js',
+      'Express',
+      'Vite',
+      'Tailwind CSS',
+    ],
+  },
+  {
+    id: 'backend',
+    label: 'Backend, data & APIs',
+    evidence: 'projects',
+    technologies: [
+      'FastAPI',
+      'Pydantic',
+      'SQLAlchemy',
+      'Alembic',
+      'Drizzle ORM',
+      'PostgreSQL',
+      'SQL Server',
+      'SQLite',
+      'Redis',
+      'Firebase Auth',
+      'Cloud Firestore',
+      'Firebase Storage',
+      'MCP SDK',
+    ],
+  },
+  {
+    id: 'platforms',
+    label: 'Product & platform tooling',
+    evidence: 'projects',
+    technologies: [
+      'MapLibre',
+      'OpenRouteService',
+      'Capacitor',
+      'Chart.js',
+      'Recharts',
+      'Stripe',
+      'Firebase Analytics',
+      'Firebase Remote Config',
+      'Firebase Functions',
+    ],
+  },
+  {
+    id: 'security',
+    label: 'Security & identity',
+    evidence: 'mixed',
+    technologies: [
+      'OAuth 2.1',
+      'MFA',
+      'SSO / SAML',
+      'JWT / JOSE',
+      'Authlib',
+      'TLS / reverse proxy',
+      'Secrets management',
+      'Policy controls',
+    ],
   },
   {
     id: 'ai',
-    label: 'AI / Automation',
-    technologies: ['MCP', 'Ollama', 'AI agents', 'Automation', 'Policy-driven execution', 'Infrastructure tooling'],
+    label: 'AI, agents & automation',
+    evidence: 'mixed',
+    technologies: [
+      'MCP',
+      'Ollama',
+      'AI agents',
+      'AgentRuntime patterns',
+      'Policy-driven execution',
+      'Infrastructure connectors',
+      'Automation',
+      'Remediation workflows',
+    ],
+  },
+  {
+    id: 'quality',
+    label: 'Testing & engineering quality',
+    evidence: 'projects',
+    technologies: [
+      'pytest',
+      'Vitest',
+      'Playwright',
+      'Testing Library',
+      'node:test',
+      'Ruff',
+      'mypy',
+      'Oxlint',
+      'CI smoke testing',
+    ],
   },
 ] as const
 

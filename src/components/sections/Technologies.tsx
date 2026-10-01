@@ -1,14 +1,18 @@
-import { Boxes, Cloud, Code2, Cpu } from 'lucide-react'
+import { Boxes, Cloud, Code2, Cpu, Database, Server, ShieldCheck, TestTube2 } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { TECH_CATEGORIES } from '../../lib/data'
 import { useLanguage } from '../../lib/i18n'
 import { Section } from '../ui/Section'
 
 const ICONS = {
-  infrastructure: Boxes,
+  systems: Server,
   cloud: Cloud,
   development: Code2,
+  backend: Database,
+  platforms: Boxes,
+  security: ShieldCheck,
   ai: Cpu,
+  quality: TestTube2,
 } as const
 
 export function Technologies() {
@@ -37,7 +41,7 @@ export function Technologies() {
           {t.technologies.description}
         </p>
         <p className="font-mono text-xs text-muted-foreground/70">
-          4 {language === 'es' ? 'dominios' : 'domains'} · {totalTechnologies} {t.technologies.technologyCount}
+          {TECH_CATEGORIES.length} {language === 'es' ? 'dominios' : 'domains'} · {totalTechnologies} {t.technologies.technologyCount}
         </p>
       </motion.div>      <div className="mt-12 grid gap-5 md:grid-cols-2">
         {TECH_CATEGORIES.map((category, index) => {
@@ -58,16 +62,29 @@ export function Technologies() {
                   <Icon className="h-5 w-5" aria-hidden="true" />
                 </span>
                 <div className="min-w-0">
-                  <h3 className="text-lg font-semibold tracking-tight text-foreground">
-                    {language === 'es'
-                      ? ({
-                          infrastructure: 'Infraestructura',
-                          cloud: 'Cloud / DevOps',
-                          development: 'Desarrollo',
-                          ai: 'IA / Automatización',
-                        }[category.id])
-                      : category.label}
-                  </h3>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <h3 className="text-lg font-semibold tracking-tight text-foreground">
+                      {language === 'es'
+                        ? ({
+                            systems: 'Sistemas y empresa',
+                            cloud: 'Cloud y DevOps',
+                            development: 'Ingeniería de software',
+                            backend: 'Backend, datos y APIs',
+                            platforms: 'Producto y plataformas',
+                            security: 'Seguridad e identidad',
+                            ai: 'IA, agentes y automatización',
+                            quality: 'Testing y calidad',
+                          }[category.id])
+                        : category.label}
+                    </h3>
+                    <span className="rounded-full border border-border/80 bg-background/50 px-2 py-0.5 font-mono text-[9px] uppercase tracking-[0.12em] text-muted-foreground/70">
+                      {category.evidence === 'professional'
+                        ? t.technologies.evidenceProfessional
+                        : category.evidence === 'projects'
+                          ? t.technologies.evidenceProjects
+                          : t.technologies.evidenceMixed}
+                    </span>
+                  </div>
                   <p className="mt-1 text-sm leading-6 text-muted-foreground">
                     {description}
                   </p>
@@ -88,28 +105,23 @@ export function Technologies() {
         })}
       </div>
 
-      <div className="mt-10 grid gap-4 border-t border-border pt-8 sm:grid-cols-3">
-        {[
-          {
-            label: language === 'es' ? 'Sistemas' : 'Systems',
-            value: language === 'es' ? 'Windows · Linux · Virtualización' : 'Windows · Linux · Virtualization',
-          },
-          {
-            label: language === 'es' ? 'Cloud' : 'Cloud',
-            value: language === 'es' ? 'Azure · AWS · Contenedores' : 'Azure · AWS · Containers',
-          },
-          {
-            label: language === 'es' ? 'Automatización' : 'Automation',
-            value: language === 'es' ? 'PowerShell · Bash · Ansible · Terraform' : 'PowerShell · Bash · Ansible · Terraform',
-          },
-        ].map(({ label, value }) => (
-          <div key={label}>
-            <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground/60">
-              {label}
-            </p>
-            <p className="mt-2 text-sm font-medium leading-6 text-foreground">{value}</p>
-          </div>
-        ))}
+      <div className="mt-10 border-t border-border pt-8">
+        <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground/60">
+          {t.technologies.evidenceTitle}
+        </p>
+        <div className="mt-5 grid gap-4 md:grid-cols-3">
+          {[
+            ['professional', t.technologies.evidenceProfessional, t.technologies.evidenceProfessionalText],
+            ['projects', t.technologies.evidenceProjects, t.technologies.evidenceProjectsText],
+            ['mixed', t.technologies.evidenceMixed, t.technologies.evidenceMixedText],
+          ].map(([key, label, text]) => (
+            <div key={key} className="rounded-xl border border-border/80 bg-background/40 p-4">
+              <p className="text-sm font-semibold text-foreground">{label}</p>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">{text}</p>
+            </div>
+          ))}
+        </div>
+        <p className="mt-4 text-xs leading-5 text-muted-foreground/70">{t.technologies.evidenceNote}</p>
       </div>
     </Section>
   )
