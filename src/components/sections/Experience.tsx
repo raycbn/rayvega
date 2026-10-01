@@ -9,6 +9,9 @@ const COMPANIES = ['Mnemo', 'Libnova / GSS', 'DACHSER'] as const
 export function Experience() {
   const { language, t } = useLanguage()
   const experiences = getExperienceCopy(language)
+  const operatingAreas = language === 'es'
+    ? ['Administración Windows y Linux', 'VMware y virtualización', 'SAN / NAS y NetApp', 'Azure y AWS', 'PowerShell, Bash y Ansible', 'Kubernetes y OpenShift']
+    : ['Windows and Linux administration', 'VMware and virtualization', 'SAN / NAS and NetApp', 'Azure and AWS', 'PowerShell, Bash and Ansible', 'Kubernetes and OpenShift']
 
   return (
     <Section id="experience">
@@ -73,7 +76,22 @@ export function Experience() {
             </motion.div>
           ))}
         </Timeline>
-      </div>      <div className="mt-12 grid gap-4 border-t border-border pt-8 sm:grid-cols-3">
+      </div>
+
+      <div className="mt-12 rounded-2xl border border-border bg-card/60 p-6 sm:p-8">
+        <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent">
+          {language === 'es' ? 'Áreas operativas' : 'Operating areas'}
+        </p>
+        <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {operatingAreas.map((area) => (
+            <div key={area} className="rounded-xl border border-border/80 bg-background/50 px-4 py-3 text-sm font-medium text-foreground">
+              {area}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="mt-12 grid gap-4 border-t border-border pt-8 sm:grid-cols-3">
         {[
           [t.experience.scope, t.experience.scopeValue],
           [t.experience.environment, t.experience.environmentValue],
