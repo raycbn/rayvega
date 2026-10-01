@@ -81,6 +81,7 @@ export const PROJECTS: Project[] = [
     status: 'in-progress',
     githubUrl: 'https://github.com/raycbn/myridian',
     detailUrl: '/projects/myridian',
+    image: '/projects/myridian-dashboard.png',
     highlights: [
       'Operations Center and multi-server estate',
       '14-tab server diagnostics surface',
@@ -100,6 +101,7 @@ export const PROJECTS: Project[] = [
     githubUrl: 'https://github.com/raycbn/Projects/tree/master/pedalmap',
     demoUrl: 'https://pedalmap-79b3a.web.app',
     detailUrl: '/projects/pedalmap',
+    image: '/projects/pedalmap-product.jpg',
     highlights: [
       'Guest-first route planning',
       'MapLibre mapping and routing provider abstraction',

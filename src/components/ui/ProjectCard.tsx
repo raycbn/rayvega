@@ -1,4 +1,4 @@
-import { ArrowUpRight, Code } from 'lucide-react'
+import { ArrowUpRight, Boxes, Cloud, Code2, Cpu, Wrench } from 'lucide-react'
 import type { ComponentPropsWithoutRef } from 'react'
 import type { Project } from '../../lib/data'
 import { getProjectCopy, useLanguage } from '../../lib/i18n'
@@ -24,6 +24,54 @@ const STATUS_LABELS = {
   es: { production: 'Producción', 'in-progress': 'En desarrollo', archived: 'Archivado', draft: 'Prototipo' },
 } as const
 
+const VISUAL_ICONS = {
+  Infrastructure: Boxes,
+  'Cloud / DevOps': Cloud,
+  Development: Code2,
+  'AI / Automation': Cpu,
+  'Tools / Lab': Wrench,
+} as const
+
+function ProjectVisual({
+  project,
+  language,
+  category,
+}: {
+  project: Project
+  language: 'en' | 'es'
+  category: string
+}) {
+  const Icon = VISUAL_ICONS[project.category]
+
+  return (
+    <div className="relative flex aspect-[16/9] w-full overflow-hidden bg-muted/20">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_15%,rgba(99,102,241,0.25),transparent_32%),linear-gradient(135deg,rgba(99,102,241,0.08),transparent_55%)]" />
+      <div className="absolute inset-0 opacity-40 [background-image:linear-gradient(to_right,currentColor_1px,transparent_1px),linear-gradient(to_bottom,currentColor_1px,transparent_1px)] [background-size:32px_32px] text-border" />
+      <div className="relative flex w-full flex-col justify-between p-5 sm:p-6">
+        <div className="flex items-center justify-between gap-3">
+          <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-accent/80">
+            {language === 'es' ? 'Portada técnica' : 'Project visual'}
+          </span>
+          <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-border/80 bg-background/50 text-accent backdrop-blur-sm">
+            <Icon className="h-5 w-5" aria-hidden="true" />
+          </span>
+        </div>
+        <div>
+          <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground/70">{category}</p>
+          <h3 className="mt-1 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">{project.name}</h3>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {project.technologies.slice(0, 4).map((tech) => (
+              <span key={tech} className="rounded-full border border-border/80 bg-background/50 px-2.5 py-1 font-mono text-[10px] text-muted-foreground backdrop-blur-sm">
+                {tech}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export function ProjectCard({ project, className }: ProjectCardProps) {
   const { language, t } = useLanguage()
   const copy = getProjectCopy(language, project.id)
@@ -45,15 +93,13 @@ export function ProjectCard({ project, className }: ProjectCardProps) {
       {project.image ? (
         <img
           src={project.image}
-          alt={project.name + (language === 'es' ? ' captura de pantalla' : ' screenshot')}
+          alt={project.name + (language === 'es' ? ' — visual del proyecto' : ' — project visual')}
           className="aspect-video w-full object-cover"
           loading="lazy"
           decoding="async"
         />
       ) : (
-        <div className="flex aspect-[16/9] w-full items-center justify-center bg-muted/30">
-          <Code className="h-7 w-7 text-muted-foreground/40" strokeWidth={1.5} />
-        </div>
+        <ProjectVisual project={project} language={language} category={copy?.category ?? project.category} />
       )}
 
       <div className="flex flex-1 flex-col p-5 sm:p-6">
