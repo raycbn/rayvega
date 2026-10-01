@@ -79,6 +79,19 @@ export function Hero() {
             {t.hero.exploreProfile}
             <ArrowDown className="h-4 w-4" aria-hidden="true" />
           </a>
+
+          <div className="mt-10 grid max-w-2xl grid-cols-3 gap-4 border-t border-border/70 pt-6">
+            {[
+              [String(8), t.hero.projectsStat],
+              [String(4), t.hero.domainsStat],
+              [String(1), t.hero.featuredStat],
+            ].map(([value, label]) => (
+              <div key={label}>
+                <p className="text-xl font-semibold tracking-tight text-foreground">{value}</p>
+                <p className="mt-1 text-[11px] uppercase tracking-[0.12em] text-muted-foreground/70">{label}</p>
+              </div>
+            ))}
+          </div>
         </motion.div>
 
         <motion.aside

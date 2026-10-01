@@ -47,6 +47,9 @@ const EN: TextDictionary = {
     focusSecurity: 'Cybersecurity',
     focusAutomation: 'Automation',
     focusAI: 'AI',
+    projectsStat: 'projects',
+    domainsStat: 'technical domains',
+    featuredStat: 'featured product',
   },
   about: {
     eyebrow: 'Profile',
@@ -183,6 +186,9 @@ const ES: TextDictionary = {
     focusSecurity: 'Ciberseguridad',
     focusAutomation: 'Automatización',
     focusAI: 'IA',
+    projectsStat: 'proyectos',
+    domainsStat: 'dominios técnicos',
+    featuredStat: 'producto destacado'
   },
   about: {
     eyebrow: 'Perfil',
