@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Menu, X } from 'lucide-react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { NAV_LINKS } from '../../lib/data'
@@ -11,7 +11,19 @@ const navLink =
 
 export function Header() {
   const [open, setOpen] = useState(false)
+  const menuButtonRef = useRef<HTMLButtonElement>(null)
+  const closeButtonRef = useRef<HTMLButtonElement>(null)
   const { language, setLanguage, t } = useLanguage()
+
+  useEffect(() => {
+    if (!open) return
+    closeButtonRef.current?.focus()
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setOpen(false)
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [open])
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-border/50 bg-background/70 backdrop-blur-xl">
@@ -62,8 +74,9 @@ export function Header() {
             aria-label={t.nav.openMenu}
             aria-controls="primary-menu"
             aria-expanded={open}
-            aria-haspopup
+            aria-haspopup="dialog"
             onClick={() => setOpen(true)}
+            ref={menuButtonRef}
           >
             <Menu className="h-4 w-4" />
           </Button>
@@ -82,6 +95,8 @@ export function Header() {
             />
             <motion.nav
               id="primary-menu"
+              role="dialog"
+              aria-modal="true"
               aria-label={t.nav.primary}
               className="fixed inset-y-0 right-0 z-40 flex h-screen w-64 flex-col gap-2 overflow-y-auto border-l border-border bg-background p-6 shadow-lg md:hidden"
               initial={{ x: '100%' }}
@@ -95,6 +110,7 @@ export function Header() {
                 className="self-end"
                 aria-label={t.nav.closeMenu}
                 onClick={() => setOpen(false)}
+                ref={closeButtonRef}
               >
                 <X className="h-4 w-4" />
               </Button>
