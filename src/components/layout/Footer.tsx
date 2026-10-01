@@ -12,7 +12,7 @@ export function Footer() {
 
   return (
     <footer className="border-t border-border/40 bg-background">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 md:px-8">
+      <div className="mx-auto flex min-h-16 max-w-7xl flex-col items-center justify-center gap-3 px-6 py-3 sm:flex-row sm:justify-between md:px-8">
         <span className="text-sm text-muted-foreground">
           © {CURRENT_YEAR} {SITE.name}. {t.common.allRightsReserved}
         </span>
